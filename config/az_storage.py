@@ -1,16 +1,9 @@
 import os
 import json
-import logging
 
 from typing import List, Dict
-from azure.storage.blob import BlobServiceClient, ContentSettings
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
+from azure.storage.blob import BlobServiceClient
+from config.logging_config import LoggingConfig
 
 
 class AzureStorage:
@@ -25,6 +18,10 @@ class AzureStorage:
         Raises:
             AzureStorageError: If connection string is missing or invalid
         """
+        # Initialize logging
+        logger = LoggingConfig()
+        self.log = logger.configure_logging()
+
         self.container_name = container_name
         connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 
@@ -38,7 +35,7 @@ class AzureStorage:
                 BlobServiceClient.from_connection_string(connection_string)
             )
             self._ensure_container_exists()
-            logger.info(
+            self.log.info(
                 f"Successfully connected to Azure Storage container: {container_name}"
             )
         except Exception as e:
@@ -53,10 +50,9 @@ class AzureStorage:
 
             if not container_client.exists():
                 container_client.create_container()
-                logger.info(f"Created container: {self.container_name}")
+                self.log.info(f"Created container: {self.container_name}")
         except Exception as e:
-            logger.error(f"Error checking/creating container: {str(e)}")
-            raise
+            raise Exception(f"Error checking/creating container: {str(e)}")
 
     def upload_to_bronze(self, data: List[Dict], filename: str) -> str:
         """Upload raw data to Bronze layer in JSON Lines format.
