@@ -122,6 +122,8 @@ services:
       timeout: 10s
       retries: 5
     restart: "no"
+    env_file:
+    - .env
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -138,6 +140,8 @@ services:
     restart: "no"
     extra_hosts:
       - "srvairflowworker-dev:10.168.165.47"
+    env_file:
+    - .env
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -160,6 +164,8 @@ services:
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
     restart: "no"
+    env_file:
+    - .env
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -176,6 +182,8 @@ services:
     restart: "no"
     extra_hosts:
       - "srvairflowworker-dev:10.168.165.47"
+    env_file:
+    - .env
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -262,6 +270,8 @@ services:
     <<: *airflow-common
     profiles:
       - debug
+    env_file:
+    - .env
     environment:
       <<: *airflow-common-env
       CONNECTION_CHECK_MAX_COUNT: "0"

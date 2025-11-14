@@ -4,15 +4,12 @@ azure-identity==1.15.0
 
 # Data Processing
 pandas==2.2.0
-pyarrow==14.0.2
+pyspark==3.5.1
 
 # Testing
 pytest==7.4.3
 pytest-cov==4.1.0
 pytest-mock==3.12.0
-
-# Orchestration (se usar Airflow)
-apache-airflow==2.8.0
 
 # API Requests
 requests==2.31.0
