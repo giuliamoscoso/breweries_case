@@ -73,6 +73,9 @@ This project implements an **end-to-end data pipeline** that:
 - Format: Parquet
 - Location: `datalake/gold/`
 
+#### Airflow DAG Overview
+![Airflow Graph](./dags/config/airflow_graph.jpg)
+
 ---
 
 ## 🛠️ Technology Stack
@@ -155,8 +158,7 @@ breweries_case/
 
 Before you begin, ensure you have:
 
-- **Docker Desktop** installed ([Download here](https://www.docker.com/products/docker-desktop))
-- **Docker Compose** v2.0+ (included with Docker Desktop)
+- **Docker + Docker Compose** installed
 - **Azure Storage Account** credentials (provided in `.env` file sent on e-mail to the examiners)
 
 ## 🚀 Setup Instructions
@@ -170,26 +172,7 @@ cd breweries_case
 
 ### Step 2: Configure Environment Variables
 
-Create a `.env` file in the project root with the following content:
-
-```bash
-# Airflow Core
-AIRFLOW_UID=1000
-AIRFLOW_IMAGE_NAME=airflow:developer
-
-# Azure Storage Configuration (provided separately)
-AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=breweriesdata;AccountKey=<YOUR_KEY>;EndpointSuffix=core.windows.net"
-
-# Brewery API Configuration
-BREWERY_API_URL="https://api.openbrewerydb.org/v1/breweries"
-
-# SMTP (optional, leave blank for development)
-SMTP_HOST=
-SMTP_USER=
-SMTP_PASSWORD=
-SMTP_PORT=
-SMTP_SENDER_EMAIL=
-```
+Copy the `.env` file received in the project root
 
 ### Step 3: Build the Docker Image
 
@@ -333,3 +316,4 @@ For questions or issues, please contact me on the e-mail giuliamoscoso@gmail.com
 
 **Last Updated**: November 14, 2025  
 **Version**: 1.0.0
+
